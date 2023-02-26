@@ -3,7 +3,19 @@ import firebase_admin
 from fastapi import FastAPI
 from firebase_admin import credentials, db
 
+from fastapi.middleware.cors import CORSMiddleware
+
+
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 cred = credentials.Certificate("social-productivity-sak.json")
 firebase_admin.initialize_app(
