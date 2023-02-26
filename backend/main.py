@@ -75,3 +75,8 @@ def create_user(name: str):
 @app.get("/user/{user_id}")
 def get_user(user_id: int):
     return db.reference(f"users/{user_id}").get()
+
+
+@app.get("/bulk_bets")
+def bulk_bets():
+    return db.reference(f"bets").get()
