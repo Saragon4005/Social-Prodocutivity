@@ -29,10 +29,9 @@ def create_group(name: str, creator_id: str):
 
 
 @app.put("bet")
-def create_task(owned: str, task: str, deadline: int, betAmount: int, proof: str):
+def create_bet(owned: str, task: str, deadline: int, betAmount: int, proof: str):
     ID = randint(100000, 999999)
-
-    db.reference(f"bets/{ID}").set({
+    response = {
         "task": task,
         "betAmount": betAmount,
         "deadline": deadline,
@@ -40,4 +39,12 @@ def create_task(owned: str, task: str, deadline: int, betAmount: int, proof: str
         "creatorId": ID,
         "owned": owned,
         "proof": proof,
-    })
+        "id": ID
+    }
+    db.reference(f"bets/{ID}").set(response)
+    return (response)
+
+
+@app.get("bet/{bet_id}")
+def get_bet(bet_id: int):
+    return db.reference(f"bets/{bet_id}").get()
