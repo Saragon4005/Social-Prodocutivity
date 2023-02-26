@@ -79,4 +79,5 @@ def get_user(user_id: int):
 
 @app.get("/bulk_bets")
 def bulk_bets():
-    return db.reference(f"bets").get()
+    hash: dict = db.reference(f"bets").get()
+    return [v for v in hash.values()]
