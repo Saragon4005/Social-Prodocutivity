@@ -40,7 +40,7 @@ def create_group(name: str, creator_id: str):
 '''
 
 
-@app.put("bet")
+@app.put("/bet")
 def create_bet(owned: str, task: str, deadline: int, betAmount: int, proof: str):
     ID = randint(100000, 999999)
     response = {
@@ -57,12 +57,12 @@ def create_bet(owned: str, task: str, deadline: int, betAmount: int, proof: str)
     return (response)
 
 
-@app.get("bet/{bet_id}")
+@app.get("/bet/{bet_id}")
 def get_bet(bet_id: int):
     return db.reference(f"bets/{bet_id}").get()
 
 
-@app.put("user")
+@app.put("/user")
 def create_user(name: str):
     ID = randint(100000, 999999)
     response = {
@@ -73,6 +73,6 @@ def create_user(name: str):
     return (response)
 
 
-@app.get("user/{user_id}")
+@app.get("/user/{user_id}")
 def get_user(user_id: int):
     return db.reference(f"users/{user_id}").get()
