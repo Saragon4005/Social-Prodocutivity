@@ -24,3 +24,18 @@ async def root():
     # doc = doc_ref.get()
 
     return {"message": "Hello World", "data": dates}
+
+
+@app.put("bet")
+def create_task(owned: str, task: str, deadline: int, betAmount: int, proof: str):
+    ID = randint(100000, 999999)
+
+    db.reference(f"bets/{ID}").set({
+        "task": task,
+        "betAmount": betAmount,
+        "deadline": deadline,
+        "completed": False,
+        "creatorId": ID,
+        "owned": owned,
+        "proof": proof,
+    })
