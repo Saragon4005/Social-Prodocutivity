@@ -48,3 +48,19 @@ def create_bet(owned: str, task: str, deadline: int, betAmount: int, proof: str)
 @app.get("bet/{bet_id}")
 def get_bet(bet_id: int):
     return db.reference(f"bets/{bet_id}").get()
+
+
+@app.put("user")
+def create_user(name: str):
+    ID = randint(100000, 999999)
+    response = {
+        "name": name,
+        "id": ID,
+    }
+    db.reference(f"users/{ID}").set(response)
+    return (response)
+
+
+@app.get("user/{user_id}")
+def get_user(user_id: int):
+    return db.reference(f"users/{user_id}").get()
