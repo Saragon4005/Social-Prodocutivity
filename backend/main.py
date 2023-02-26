@@ -1,10 +1,9 @@
 from random import randint
+
 import firebase_admin
 from fastapi import FastAPI
-from firebase_admin import credentials, db
-
 from fastapi.middleware.cors import CORSMiddleware
-
+from firebase_admin import credentials, db
 
 app = FastAPI()
 
@@ -40,8 +39,8 @@ def create_group(name: str, creator_id: str):
 '''
 
 
-@app.put("/bet")
-def create_bet(owned: str, task: str, deadline: int, betAmount: int, proof: str):
+@app.post("/bet")
+def create_bet(task: str, deadline: int, betAmount: int, proof: str):
     ID = randint(100000, 999999)
     response = {
         "task": task,
@@ -49,7 +48,6 @@ def create_bet(owned: str, task: str, deadline: int, betAmount: int, proof: str)
         "deadline": deadline,
         "completed": False,
         "creatorId": ID,
-        "owned": owned,
         "proof": proof,
         "id": ID
     }
@@ -62,7 +60,7 @@ def get_bet(bet_id: int):
     return db.reference(f"bets/{bet_id}").get()
 
 
-@app.put("/user")
+@app.post("/user/{name}")
 def create_user(name: str):
     ID = randint(100000, 999999)
     response = {
@@ -70,6 +68,7 @@ def create_user(name: str):
         "id": ID,
     }
     db.reference(f"users/{ID}").set(response)
+    print(response)
     return (response)
 
 
